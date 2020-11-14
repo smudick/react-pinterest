@@ -3,7 +3,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import googleImage from './Sign-in-with-Google.png';
 
-class Auth extends Component {
+export default class Auth extends Component {
   loginClickEvent = (e) => {
     e.preventDefault();
     const provider = new firebase.auth.GoogleAuthProvider();
@@ -14,12 +14,9 @@ class Auth extends Component {
     return (
       <div className='Auth'>
         <button className='btn btn-secondary' onClick={this.loginClickEvent}>
-          <img src={googleImage} alt='Google sign in button' />
+          <img src={googleImage} alt='Google Sign In Button' />
         </button>
-
       </div>
     );
   }
 }
-
-export default Auth;
