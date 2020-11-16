@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 
-export default class BoardContainer extends Component {
+export default class Loader extends Component {
   render() {
     return (
-      <div className='BoardContainer'>
+      <div>
+        <h2>Loading...</h2>
       </div>
     );
   }

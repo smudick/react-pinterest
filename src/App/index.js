@@ -4,7 +4,10 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import fbConnection from '../helpers/data/connection';
 import Routes from '../helpers/Routes';
 import MyNavbar from '../components/MyNavbar';
+// import { patchFBBoardkeys, patchFBPinkeys } from '../helpers/data/patchFBKeys';
 
+// patchFBBoardkeys();
+// patchFBPinkeys();
 fbConnection();
 
 class App extends React.Component {
