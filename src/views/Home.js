@@ -1,12 +1,14 @@
 import React from 'react';
-import Boards from './Boards';
+import Loader from './Loader';
 import Auth from '../components/Auth';
 
-export default function Home({ authed }) {
+export default function Home({ user }) {
   const loadComponent = () => {
     let component = '';
-    if (authed) {
-      component = <Boards />;
+    if (user === null) {
+      component = <Loader />;
+    } else if (user) {
+      component = 'load all pins here';
     } else {
       component = <Auth />;
     }

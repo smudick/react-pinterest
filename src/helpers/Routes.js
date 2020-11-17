@@ -9,17 +9,17 @@ import PinForm from '../views/PinForm';
 import SingleBoard from '../views/SingleBoard';
 import BoardForm from '../views/BoardForm';
 
-export default function Routes({ authed }) {
+export default function Routes({ user }) {
   return (
     <div className='App'>
         <Switch>
-          <Route exact path='/' component={() => <Home authed={authed} />} />
-          <Route exact path='/boards' component={() => <Boards authed={authed} />} />
-          <Route exact path='/pins' component={() => <Pins authed={authed} />} />
-          <Route exact path='/pin-details' component={() => <PinDetails authed={authed} />} />
-          <Route exact path='/pin-form' component={() => <PinForm authed={authed} />} />
-          <Route exact path='/boards/:id' component={(props) => <SingleBoard authed={authed} {...props} />} />
-          <Route exact path='/board-form' component={() => <BoardForm authed={authed} />} />
+          <Route exact path='/' component={() => <Home user={user} />} />
+          <Route exact path='/boards' component={() => <Boards user={user} />} />
+          <Route exact path='/pins' component={() => <Pins user={user} />} />
+          <Route exact path='/pin-details' component={() => <PinDetails user={user} />} />
+          <Route exact path='/pin-form' component={() => <PinForm user={user} />} />
+          <Route exact path='/boards/:id' component={(props) => <SingleBoard user={user} {...props} />} />
+          <Route exact path='/board-form' component={() => <BoardForm user={user} />} />
           <Route component={NotFound} />
         </Switch>
     </div>

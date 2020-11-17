@@ -15,15 +15,16 @@ export default class Boards extends Component {
     boardData.getAllUserBoards(uid).then((response) => {
       this.setState({
         boards: response,
-      }, this.setLoading);
+        loading: false,
+      });
     });
   }
 
-  setLoading = () => {
-    this.timer = setInterval(() => {
-      this.setState({ loading: false });
-    }, 1000);
-  }
+  // setLoading = () => {
+  //   this.timer = setInterval(() => {
+  //     this.setState({ loading: false });
+  //   }, 1000);
+  // }
 
   componentWillUnmount() {
     clearInterval(this.timer);
