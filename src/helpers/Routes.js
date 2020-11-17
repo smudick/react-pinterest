@@ -18,7 +18,7 @@ export default function Routes({ authed }) {
           <Route exact path='/pins' component={() => <Pins authed={authed} />} />
           <Route exact path='/pin-details' component={() => <PinDetails authed={authed} />} />
           <Route exact path='/pin-form' component={() => <PinForm authed={authed} />} />
-          <Route exact path='/single-board:id' component={(props) => <SingleBoard authed={authed} {...props} />} />
+          <Route exact path='/boards/:id' component={(props) => <SingleBoard authed={authed} {...props} />} />
           <Route exact path='/board-form' component={() => <BoardForm authed={authed} />} />
           <Route component={NotFound} />
         </Switch>

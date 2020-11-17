@@ -1,15 +1,52 @@
 import React from 'react';
+import { getBoardPins, getPin } from '../helpers/data/pinData';
+import boardData from '../helpers/data/boardData';
+import PinsCard from '../components/Cards/PinsCard';
 
-export default function SingleBoard(props) {
-  const boardFirebaseKey = props.match.pararms.id;
-  // 1. make a call to the api that returns the pins associated with this board
+export default class SingleBoard extends React.Component {
+  state = {
+    board: {},
+    pins: [],
+  };
 
-  // 2. Put the array of pins in state
+  componentDidMount() {
+    // 1. get board id from url params
+    const boardFirebaseKey = this.props.match.params.id;
+    // 2. API call to get board info
+    boardData.getSingleBoard(boardFirebaseKey).then((response) => {
+      this.setState({
+        board: response,
+      });
+    });
+    // 3. API Call to get pins associated with boardId
+    this.getPins(boardFirebaseKey).then((response) => {
+      this.setState({
+        pins: response,
+      });
+    });
+  }
 
-  // 23. render pins on the dom
-  return (
-    <div>
-      <h1>Single Board</h1>
-    </div>
+  getPins = (boardFirebaseKey) => (
+    getBoardPins(boardFirebaseKey).then((response) => {
+      const pinsArray = [];
+      response.forEach((item) => {
+        pinsArray.push(getPin(item.pinId));
+      });
+      return Promise.all([...pinsArray]);
+    })
   );
+
+  render() {
+    const { pins, board } = this.state;
+    const renderPins = () => (
+      pins.map((pin) => (<PinsCard key={pin.firebaseKey} pin={pin} />)));
+    return (
+      <div>
+        <h1>{board.name}</h1>
+        <div className='d-flex flex-wrap justify-content-center'>
+          {renderPins()}
+        </div>
+      </div>
+    );
+  }
 }

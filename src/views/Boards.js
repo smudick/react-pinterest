@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import getUserBoards from '../helpers/data/boardData';
+import boardData from '../helpers/data/boardData';
 import BoardsCard from '../components/Cards/BoardsCard';
 import getUid from '../helpers/data/authData';
 import Loader from './Loader';
@@ -12,7 +12,7 @@ export default class Boards extends Component {
 
   componentDidMount() {
     const uid = getUid();
-    getUserBoards(uid).then((response) => {
+    boardData.getAllUserBoards(uid).then((response) => {
       this.setState({
         boards: response,
       }, this.setLoading);
@@ -40,7 +40,7 @@ export default class Boards extends Component {
       ) : (
         <>
         <h2>All Boards</h2>
-        <div className='d-flex flex-wrap container'>{showBoards()}</div>
+        <div className='d-flex flex-wrap justify-content-center'>{showBoards()}</div>
         </>
       )}
     </>
