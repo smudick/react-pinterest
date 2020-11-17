@@ -1,23 +1,26 @@
 import React from 'react';
 import firebase from 'firebase/app';
+import { BrowserRouter as Router } from 'react-router-dom';
 import fbConnection from '../helpers/data/connection';
-import Auth from '../components/Auth';
+import Routes from '../helpers/Routes';
 import MyNavbar from '../components/MyNavbar';
-import BoardContainer from '../components/BoardContainer';
+import { patchFBBoardkeys, patchFBPinkeys } from '../helpers/data/patchFBKeys';
 
+patchFBBoardkeys();
+patchFBPinkeys();
 fbConnection();
 
 class App extends React.Component {
   state = {
-    authed: false,
+    user: null,
   };
 
   componentDidMount() {
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        this.setState({ authed: true });
+        this.setState({ user });
       } else {
-        this.setState({ authed: false });
+        this.setState({ user: false });
       }
     });
   }
@@ -27,20 +30,15 @@ class App extends React.Component {
   }
 
   render() {
-    const { authed } = this.state;
-    const loadComponent = () => {
-      let component = '';
-      if (authed) {
-        component = <BoardContainer />;
-      } else {
-        component = <Auth />;
-      }
-      return component;
-    };
-    return <div className='App'>
-      <MyNavbar authed={authed} />
-      {loadComponent()}
-    </div>;
+    const { user } = this.state;
+    return (
+    <div className='App'>
+      <Router>
+        <MyNavbar user={user} />
+        <Routes user={user} />
+      </Router>
+    </div>
+    );
   }
 }
 
