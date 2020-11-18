@@ -1,9 +1,49 @@
 import React from 'react';
+import { getAllUserPins } from '../helpers/data/pinData';
+import PinsCard from '../components/Cards/PinsCard';
+import getUid from '../helpers/data/authData';
+import Loader from './Loader';
 
-export default function Pins({ authed }) {
-  return (
-    <div>
-      <h1>Pins</h1>
-    </div>
-  );
+class Pins extends React.Component {
+  state = {
+    pins: [],
+    loading: true,
+  }
+
+  componentDidMount() {
+    this.getPins();
+  }
+
+  getPins = () => {
+    const uid = getUid();
+    getAllUserPins(uid).then((response) => {
+      this.setState({
+        pins: response,
+        loading: false,
+      });
+    });
+  }
+
+  render() {
+    const { pins, loading } = this.state;
+    const showPins = () => pins.map((pin) => (
+      <PinsCard key={pin.firebaseKey} pin={pin} />
+    ));
+    return (
+      <>
+      { loading ? (
+        <Loader />
+      ) : (
+        <>
+          <h1>All Pins</h1>
+          <div className='d-flex flex-wrap justify-content-center'>
+            {showPins()}
+          </div>
+        </>
+      )}
+      </>
+    );
+  }
 }
+
+export default Pins;

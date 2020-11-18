@@ -4,6 +4,7 @@ import BoardsCard from '../components/Cards/BoardsCard';
 import getUid from '../helpers/data/authData';
 import Loader from './Loader';
 import BoardForm from '../components/Forms/BoardForm';
+import AppModal from '../components/AppModal';
 
 export default class Boards extends Component {
   state = {
@@ -45,7 +46,9 @@ export default class Boards extends Component {
         <Loader />
       ) : (
         <>
+        <AppModal title={'Create Board'} buttonLabel={'Create Board'}>
         <BoardForm onUpdate={this.getBoards}/>
+        </AppModal>
         <h2>All Boards</h2>
         <div className='d-flex flex-wrap justify-content-center'>{showBoards()}</div>
         </>
