@@ -3,6 +3,8 @@ import { getAllUserPins } from '../helpers/data/pinData';
 import PinsCard from '../components/Cards/PinsCard';
 import getUid from '../helpers/data/authData';
 import Loader from './Loader';
+import PinForm from '../components/Forms/PinForm';
+import AppModal from '../components/AppModal';
 
 class Pins extends React.Component {
   state = {
@@ -35,6 +37,9 @@ class Pins extends React.Component {
         <Loader />
       ) : (
         <>
+          <AppModal title={'Create Pin'} buttonLabel={'Create Pin'}>
+          <PinForm onUpdate={this.getPins}/>
+          </AppModal>
           <h1>All Pins</h1>
           <div className='d-flex flex-wrap justify-content-center'>
             {showPins()}
