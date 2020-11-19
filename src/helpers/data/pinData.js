@@ -14,4 +14,27 @@ const getPin = (pinId) => new Promise((resolve, reject) => {
   }).catch((error) => reject(error));
 });
 
-export { getBoardPins, getPin };
+const getAllUserPins = (uid) => new Promise((resolve, reject) => {
+  axios
+    .get(`${baseUrl}/pins.json?orderBy="UserId"&equalTo="${uid}"`).then((response) => {
+      resolve(Object.values(response.data));
+    })
+    .catch((error) => reject(error));
+});
+
+const createPin = (pinObj) => new Promise((resolve, reject) => {
+  axios
+    .post(`${baseUrl}/pins.json`, pinObj)
+    .then((response) => {
+      axios.patch(`${baseUrl}/pins/${response.data.name}.json`, { firebaseKey: response.data.name }).then((patchResponse) => {
+        resolve(patchResponse);
+      }).catch((error) => reject(error));
+    });
+});
+
+export {
+  getBoardPins,
+  getPin,
+  getAllUserPins,
+  createPin,
+};
