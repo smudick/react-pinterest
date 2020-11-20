@@ -37,9 +37,20 @@ const updateBoard = (boardObj) => new Promise((resolve, reject) => {
     }).catch((error) => reject(error));
 });
 
+const createPinBoard = (obj) => new Promise((resolve, reject) => {
+  axios
+    .post(`${baseUrl}/pins-boards.json`, obj).then((response) => {
+      axios.patch(`${baseUrl}/pin-boards/${response.data.name}.json`, { firebaseKey: response.data.name })
+        .then((patchResponse) => {
+          resolve(patchResponse);
+        }).catch((error) => reject(error));
+    });
+});
+
 export default {
   getAllUserBoards,
   getSingleBoard,
   createBoard,
   updateBoard,
+  createPinBoard,
 };
