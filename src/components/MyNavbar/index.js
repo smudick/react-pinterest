@@ -15,8 +15,10 @@ export default class MyNavbar extends Component {
     return (
       <div className='MyNavbar'>
         <nav className='navbar navbar-expand-lg navbar-dark bg-dark'>
-          <span className='navbar-brand' href='#'>
+          <span className='navbar-brand'>
+            <Link to='/'>
             Pinterest
+            </Link>
           </span>
           <button
             className='navbar-toggler'
