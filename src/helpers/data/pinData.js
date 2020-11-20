@@ -32,9 +32,16 @@ const createPin = (pinObj) => new Promise((resolve, reject) => {
     });
 });
 
+const getPublicPins = () => new Promise((resolve, reject) => {
+  axios.get(`${baseUrl}/pins.json?orderBy="private"&equalTo=false`).then((response) => {
+    resolve(Object.values(response.data));
+  }).catch((error) => reject(error));
+});
+
 export {
   getBoardPins,
   getPin,
   getAllUserPins,
   createPin,
+  getPublicPins,
 };

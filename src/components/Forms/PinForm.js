@@ -84,9 +84,6 @@ export default class PinForm extends Component {
     const {
       name, boards, description, imageUrl,
     } = this.state;
-    console.warn(boards);
-    const showBoardOptions = () => boards.forEach((board) => (
-      <option key={board.firebaseKey} board={board}>{board.name}</option>));
     return (
       <form onSubmit={this.handleSubmit}>
         <h1>Pin Form</h1>
