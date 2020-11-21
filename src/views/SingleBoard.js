@@ -1,5 +1,5 @@
 import React from 'react';
-import { getBoardPins, getPin } from '../helpers/data/pinData';
+import { getBoardPins, getPin, deletePin } from '../helpers/data/pinData';
 import boardData from '../helpers/data/boardData';
 import PinsCard from '../components/Cards/PinsCard';
 import BoardForm from '../components/Forms/BoardForm';
@@ -42,10 +42,22 @@ export default class SingleBoard extends React.Component {
     })
   );
 
+  removePin = (e) => {
+    const removedPin = this.state.pins.filter(
+      (pin) => pin.firebaseKey !== e.target.id,
+    );
+    this.setState({
+      pins: removedPin,
+    });
+    deletePin(e.target.id).then(() => {
+      this.getPins();
+    });
+  }
+
   render() {
     const { pins, board } = this.state;
     const renderPins = () => (
-      pins.map((pin) => (<PinsCard key={pin.firebaseKey} pin={pin} />)));
+      pins.map((pin) => (<PinsCard key={pin.firebaseKey} pin={pin} removePin={this.removePin} />)));
     return (
       <div>
         <AppModal title={'Update Board'} buttonLabel={'Update Board'}>
