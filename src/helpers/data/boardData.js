@@ -70,4 +70,5 @@ export default {
   updateBoard,
   createPinBoard,
   deleteBoard,
+  deletePinBoard,
 };

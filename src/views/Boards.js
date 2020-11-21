@@ -38,16 +38,6 @@ export default class Boards extends Component {
     });
   };
 
-  // setLoading = () => {
-  //   this.timer = setInterval(() => {
-  //     this.setState({ loading: false });
-  //   }, 1000);
-  // }
-
-  // componentWillUnmount() {
-  //   clearInterval(this.timer);
-  // }
-
   render() {
     const { boards, loading } = this.state;
     const showBoards = () => boards.map((board) => (
