@@ -3,7 +3,6 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import Home from '../views/Home';
 import Pins from '../views/Pins';
 import Boards from '../views/Boards';
-import PinDetails from '../views/PinDetails';
 import NotFound from '../views/NotFound';
 import SingleBoard from '../views/SingleBoard';
 import SearchResults from '../views/SearchResults';
@@ -27,12 +26,6 @@ export default function Routes({ user }) {
           exact
           path='/pins'
           component={Pins}
-          user={user}
-        />
-        <PrivateRoute
-          exact
-          path='/pin-details'
-          component={PinDetails}
           user={user}
         />
         <PrivateRoute

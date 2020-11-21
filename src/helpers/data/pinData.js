@@ -53,6 +53,14 @@ const deletePin = (pinId) => axios.delete(`${baseUrl}/pins/${pinId}.json`)
       });
   });
 
+const updatePin = (pinObj) => new Promise((resolve, reject) => {
+  axios
+    .patch(`${baseUrl}/pins/${pinObj.firebaseKey}.json`, pinObj)
+    .then((response) => {
+      resolve(response);
+    }).catch((error) => reject(error));
+});
+
 export {
   getBoardPins,
   getPin,
@@ -60,4 +68,5 @@ export {
   createPin,
   getPublicPins,
   deletePin,
+  updatePin,
 };

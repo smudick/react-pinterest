@@ -53,8 +53,8 @@ class Pins extends React.Component {
         <Loader />
       ) : (
         <>
-          <AppModal title={'Create Pin'} buttonLabel={'Create Pin'}>
-            <PinForm onUpdate={this.getPins}/>
+          <AppModal title={'Create Pin'} buttonLabel={'Create Pin'} buttonColor={'danger'}>
+            <PinForm onUpdate={this.getPins} pin={this.state.pin}/>
           </AppModal>
           <h1>All Pins</h1>
           <div className='d-flex flex-wrap justify-content-center'>
