@@ -1,5 +1,5 @@
 import React from 'react';
-import { getAllUserPins } from '../helpers/data/pinData';
+import { getAllUserPins, deletePin } from '../helpers/data/pinData';
 import PinsCard from '../components/Cards/PinsCard';
 import getUid from '../helpers/data/authData';
 import Loader from './Loader';
@@ -26,10 +26,26 @@ class Pins extends React.Component {
     });
   }
 
+  removePin = (e) => {
+    const removedPin = this.state.pins.filter(
+      (pin) => pin.firebaseKey !== e.target.id,
+    );
+    this.setState({
+      pins: removedPin,
+    });
+    deletePin(e.target.id).then(() => {
+      this.getPins();
+    });
+  }
+
   render() {
     const { pins, loading } = this.state;
     const showPins = () => pins.map((pin) => (
-      <PinsCard key={pin.firebaseKey} pin={pin} />
+      <PinsCard
+        key={pin.firebaseKey}
+        pin={pin}
+        removePin={this.removePin}
+      />
     ));
     return (
       <>

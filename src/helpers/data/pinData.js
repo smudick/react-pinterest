@@ -1,4 +1,5 @@
 import axios from 'axios';
+import boardData from './boardData';
 
 const baseUrl = 'https://pinterest-2c944.firebaseio.com/';
 
@@ -38,10 +39,25 @@ const getPublicPins = () => new Promise((resolve, reject) => {
   }).catch((error) => reject(error));
 });
 
+const deletePin = (pinId) => axios.delete(`${baseUrl}/pins/${pinId}.json`)
+  .then(() => {
+    axios.get(`${baseUrl}/pin-boards.json?orderBy="pinId"&equalTo="${pinId}"`)
+      .then((response) => {
+        const responseArray = Object.values(response);
+        responseArray.forEach((respArr) => {
+          const pinBoardIdsArray = Object.keys(respArr);
+          pinBoardIdsArray.forEach((id) => {
+            boardData.deletePinBoard(id);
+          });
+        });
+      });
+  });
+
 export {
   getBoardPins,
   getPin,
   getAllUserPins,
   createPin,
   getPublicPins,
+  deletePin,
 };
