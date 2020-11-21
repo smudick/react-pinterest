@@ -10,7 +10,7 @@ export default class Boards extends Component {
   state = {
     boards: [],
     loading: true,
-  }
+  };
 
   componentDidMount() {
     this.getBoards();
@@ -24,7 +24,19 @@ export default class Boards extends Component {
         loading: false,
       });
     });
-  }
+  };
+
+  removeBoard = (e) => {
+    const removedBoard = this.state.boards.filter(
+      (board) => board.firebaseKey !== e.target.id,
+    );
+    this.setState({
+      boards: removedBoard,
+    });
+    boardData.deleteBoard(e.target.id).then(() => {
+      this.getBoards();
+    });
+  };
 
   // setLoading = () => {
   //   this.timer = setInterval(() => {
@@ -39,21 +51,28 @@ export default class Boards extends Component {
   render() {
     const { boards, loading } = this.state;
     const showBoards = () => boards.map((board) => (
-        <BoardsCard key={board.firebaseKey} board={board} />));
+        <BoardsCard
+          key={board.firebaseKey}
+          board={board}
+          removeBoard={this.removeBoard}
+        />
+    ));
     return (
       <>
-      { loading ? (
-        <Loader />
-      ) : (
-        <>
-        <AppModal title={'Create Board'} buttonLabel={'Create Board'}>
-        <BoardForm onUpdate={this.getBoards}/>
-        </AppModal>
-        <h2>All Boards</h2>
-        <div className='d-flex flex-wrap justify-content-center'>{showBoards()}</div>
-        </>
-      )}
-    </>
+        {loading ? (
+          <Loader />
+        ) : (
+          <>
+            <AppModal title={'Create Board'} buttonLabel={'Create Board'}>
+              <BoardForm onUpdate={this.getBoards} />
+            </AppModal>
+            <h2>All Boards</h2>
+            <div className='d-flex flex-wrap justify-content-center'>
+              {showBoards()}
+            </div>
+          </>
+        )}
+      </>
     );
   }
 }

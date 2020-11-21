@@ -22,7 +22,7 @@ const createBoard = (boardObj) => new Promise((resolve, reject) => {
   axios
     .post(`${baseUrl}/boards.json`, boardObj)
     .then((response) => {
-      axios.patch(`${baseUrl}/boards/${response.data.name}.json`, { id: response.data.name })
+      axios.patch(`${baseUrl}/boards/${response.data.name}.json`, { firebaseKey: response.data.name })
         .then((patchResponse) => {
           resolve(patchResponse);
         }).catch((error) => reject(error));
@@ -39,7 +39,7 @@ const updateBoard = (boardObj) => new Promise((resolve, reject) => {
 
 const createPinBoard = (obj) => new Promise((resolve, reject) => {
   axios
-    .post(`${baseUrl}/pins-boards.json`, obj).then((response) => {
+    .post(`${baseUrl}/pin-boards.json`, obj).then((response) => {
       axios.patch(`${baseUrl}/pin-boards/${response.data.name}.json`, { firebaseKey: response.data.name })
         .then((patchResponse) => {
           resolve(patchResponse);
@@ -47,10 +47,27 @@ const createPinBoard = (obj) => new Promise((resolve, reject) => {
     });
 });
 
+const deleteBoard = (boardFirebaseKey) => axios.delete(`${baseUrl}/boards/${boardFirebaseKey}.json`)
+  .then(() => {
+    axios.get(`${baseUrl}/pin-boards.json?orderBy="boardId"&equalTo="${boardFirebaseKey}"`)
+      .then((response) => {
+        const responseArray = Object.values(response);
+        responseArray.forEach((respArr) => {
+          const pinBoardIdsArray = Object.keys(respArr);
+          pinBoardIdsArray.forEach((id) => {
+            deletePinBoard(id);
+          });
+        });
+      });
+  });
+
+const deletePinBoard = (id) => axios.delete(`${baseUrl}/pin-boards/${id}.json`);
+
 export default {
   getAllUserBoards,
   getSingleBoard,
   createBoard,
   updateBoard,
   createPinBoard,
+  deleteBoard,
 };

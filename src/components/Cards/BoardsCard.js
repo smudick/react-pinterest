@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export default class BoardsCards extends Component {
   render() {
-    const { board } = this.props;
+    const { board, removeBoard } = this.props;
     return (
       <div className='card m-3'>
         <img className='card-img-top board-img' src={board.imageUrl} alt='Card cap'></img>
@@ -13,6 +13,7 @@ export default class BoardsCards extends Component {
           <Link className='btn btn-primary' to={`/boards/${board.firebaseKey}`}>
             View Pins
           </Link>
+          <button className='btn btn-danger' id={board.firebaseKey} onClick={(e) => removeBoard(e)}>Delete Board</button>
         </div>
       </div>
     );
