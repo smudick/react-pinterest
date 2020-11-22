@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import firebase from 'firebase/app';
 import 'firebase/storage';
 import getUser from '../../helpers/data/authData';
-import { createPin, updatePin } from '../../helpers/data/pinData';
+import { createPin, updatePin, getPinBoardToDelete } from '../../helpers/data/pinData';
 import boardData from '../../helpers/data/boardData';
 
 export default class PinForm extends Component {
@@ -70,6 +70,7 @@ export default class PinForm extends Component {
         this.props.onUpdate?.(this.props.boardId);
       });
     } else {
+      getPinBoardToDelete(this.state.firebaseKey);
       const updatedPin = {
         name: this.state.name,
         description: this.state.description,
@@ -79,7 +80,13 @@ export default class PinForm extends Component {
         private: this.state.private,
       };
       updatePin(updatedPin).then(() => {
-        this.props.onUpdate(this.props.pin.firebaseKey);
+        const updatedPinBoard = {
+          boardId: this.boardsRef.current.value,
+          pinId: this.state.firebaseKey,
+          userId: this.state.UserId,
+        };
+        boardData.createPinBoard(updatedPinBoard);
+        this.props.onUpdate?.(this.props.pin.firebaseKey);
       });
     }
   };

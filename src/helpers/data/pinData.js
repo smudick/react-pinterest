@@ -61,6 +61,19 @@ const updatePin = (pinObj) => new Promise((resolve, reject) => {
     }).catch((error) => reject(error));
 });
 
+const getPinBoardToDelete = (pinId) => new Promise((resolve, reject) => {
+  axios.get(`${baseUrl}/pin-boards.json?orderBy="pinId"&equalTo="${pinId}"`)
+    .then((response) => {
+      const responseArray = Object.values(response);
+      responseArray.forEach((respArr) => {
+        const pinBoardIdsArray = Object.keys(respArr);
+        pinBoardIdsArray.forEach((id) => {
+          boardData.deletePinBoard(id);
+        });
+      });
+    });
+});
+
 export {
   getBoardPins,
   getPin,
@@ -69,4 +82,5 @@ export {
   getPublicPins,
   deletePin,
   updatePin,
+  getPinBoardToDelete,
 };
