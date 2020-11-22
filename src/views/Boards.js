@@ -53,7 +53,7 @@ export default class Boards extends Component {
           <Loader />
         ) : (
           <>
-            <AppModal title={'Create Board'} buttonLabel={'Create Board'}>
+            <AppModal title={'Create Board'} buttonLabel={'Create Board'} buttonColor={'primary'}>
               <BoardForm onUpdate={this.getBoards} />
             </AppModal>
             <h2>All Boards</h2>
