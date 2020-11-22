@@ -138,11 +138,11 @@ export default class PinForm extends Component {
           onChange={this.handleChange}
         />
         <select
-          name='privatePin'
+          name='private'
           value={this.state.private}
           onChange={this.handleChange} >
-            <option value='true'>Private</option>
-            <option value='false'>Public</option>
+            <option value={true}>Private</option>
+            <option value={false}>Public</option>
           </select>
           <select ref={this.boardsRef}>
             {Object.keys(boards).length && boards.map((board) => (
