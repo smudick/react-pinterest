@@ -12,7 +12,7 @@ export default class PinForm extends Component {
     imageUrl: this.props.pin?.imageUrl || '',
     UserId: this.props.pin?.UserId || '',
     description: this.props.pin?.description || '',
-    private: this.props.pin?.private || false,
+    private: this.props.pin?.private || 'false',
     boards: [],
   };
 
@@ -141,8 +141,8 @@ export default class PinForm extends Component {
           name='private'
           value={this.state.private}
           onChange={this.handleChange} >
-            <option value={true}>Private</option>
-            <option value={false}>Public</option>
+            <option value={'true'}>Private</option>
+            <option value={'false'}>Public</option>
           </select>
           <select ref={this.boardsRef}>
             {Object.keys(boards).length && boards.map((board) => (

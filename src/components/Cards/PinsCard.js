@@ -11,10 +11,17 @@ export default class PinsCard extends Component {
         <div className='card-body'>
           <h5 className='card-title'>{pin.name}</h5>
           <p className='card-text'>{pin.description}</p>
+          {(this.props.isOnHome !== true) ? (
+          <div>
           <button className='btn btn-danger' id={pin.firebaseKey} onClick={(e) => removePin(e)}>Delete Pin</button>
           <AppModal title={'Edit Pin'} buttonLabel={'Edit Pin'} buttonColor={'success'}>
             <PinForm onUpdate={this.getPins} pin={this.props.pin}/>
           </AppModal>
+          </div>
+          ) : (
+             <div></div>
+          )
+          }
         </div>
       </div>
     );
