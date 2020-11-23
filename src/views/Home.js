@@ -37,7 +37,7 @@ export default class Home extends React.Component {
         component = <Loader />;
       } else if (user) {
         component = pins.map((pin) => (
-          <PinsCard key={pin.firebaseKey} pin={pin} />
+          <PinsCard key={pin.firebaseKey} pin={pin} isOnHome={true} />
         ));
       } else {
         component = <Auth />;
