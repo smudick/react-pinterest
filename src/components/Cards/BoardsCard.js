@@ -5,7 +5,7 @@ export default class BoardsCards extends Component {
   render() {
     const { board, removeBoard } = this.props;
     return (
-      <div className='card m-3'>
+      <div className='card m-3 narrow'>
         <img className='card-img-top board-img' src={board.imageUrl} alt='Card cap'></img>
         <div className='card-body'>
           <h5 className='card-title'>{board.name}</h5>
