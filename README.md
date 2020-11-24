@@ -1,5 +1,7 @@
 # Pinterest
 
+![screencapture-localhost-3000-boards-2020-11-23-21_19_49](https://user-images.githubusercontent.com/65687019/100043962-198e3980-2dd4-11eb-88a0-14c2ef080434.png)
+
 ## Deployed Site
 
 Check it out <a href="https://sm-react-pinterest.netlify.app/">here!</a>
