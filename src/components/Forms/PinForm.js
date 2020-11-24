@@ -14,6 +14,7 @@ export default class PinForm extends Component {
     description: this.props.pin?.description || '',
     private: this.props.pin?.private || 'false',
     boards: [],
+    success: false,
   };
 
   boardsRef = React.createRef();
@@ -68,6 +69,9 @@ export default class PinForm extends Component {
         boardData.createPinBoard(pinBoard);
       }).then(() => {
         this.props.onUpdate?.(this.props.boardId);
+        this.setState({
+          success: true,
+        });
       });
     } else {
       getPinBoardToDelete(this.state.firebaseKey);
@@ -87,6 +91,9 @@ export default class PinForm extends Component {
         };
         boardData.createPinBoard(updatedPinBoard);
         this.props.onUpdate?.(this.props.pin.firebaseKey);
+        this.setState({
+          success: true,
+        });
       });
     }
   };
@@ -102,6 +109,11 @@ export default class PinForm extends Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <h1>Pin Form</h1>
+        {(this.state.success === true) ? (
+          <div class="alert alert-success" role="alert">Your Pin Was Successfully Updated!</div>
+        ) : (
+          <div></div>
+        )}
         <input
           type='text'
           name='name'
