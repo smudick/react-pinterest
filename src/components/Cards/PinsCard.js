@@ -12,8 +12,8 @@ export default class PinsCard extends Component {
           <h5 className='card-title'>{pin.name}</h5>
           <p className='card-text'>{pin.description}</p>
           {(this.props.isOnHome !== true) ? (
-          <div>
-          <button className='btn btn-danger' id={pin.firebaseKey} onClick={(e) => removePin(e)}>Delete Pin</button>
+          <div className='d-flex justify-content-center'>
+          <button className='btn btn-danger mr-1' id={pin.firebaseKey} onClick={(e) => removePin(e)}>Delete Pin</button>
           <AppModal title={'Edit Pin'} buttonLabel={'Edit Pin'} buttonColor={'success'}>
             <PinForm onUpdate={this.getPins} pin={this.props.pin}/>
           </AppModal>
