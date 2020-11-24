@@ -63,7 +63,6 @@ export default class BoardForm extends Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <h1>Board Form</h1>
         {(this.state.success === true) ? (
           <div class="alert alert-success" role="alert">Your Board Was Successfully Updated!</div>
         ) : (
@@ -104,7 +103,7 @@ export default class BoardForm extends Component {
           accept='image/*'
           onChange={this.handleChange}
         />
-        <button>Submit</button>
+        <button className='btn btn-success'>Submit</button>
       </form>
     );
   }

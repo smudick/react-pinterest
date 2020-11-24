@@ -108,7 +108,6 @@ export default class PinForm extends Component {
     } = this.state;
     return (
       <form onSubmit={this.handleSubmit}>
-        <h1>Pin Form</h1>
         {(this.state.success === true) ? (
           <div class="alert alert-success" role="alert">Your Pin Was Successfully Updated!</div>
         ) : (
@@ -149,19 +148,22 @@ export default class PinForm extends Component {
           accept='image/*'
           onChange={this.handleChange}
         />
+        <p>Set Pin Visibility</p>
         <select
           name='private'
+          className='form-control form-control-md'
           value={this.state.private}
           onChange={this.handleChange} >
             <option value={'true'}>Private</option>
             <option value={'false'}>Public</option>
-          </select>
-          <select ref={this.boardsRef}>
+        </select>
+        <p className='mt-2'>Select A Board</p>
+        <select ref={this.boardsRef} className='form-control form-control-md mb-2'>
             {Object.keys(boards).length && boards.map((board) => (
               <option key={board.firebaseKey} value={board.firebaseKey}>{board.name}</option>
             ))}
-          </select>
-        <button>Submit</button>
+        </select>
+        <button className='btn btn-success'>Submit</button>
       </form>
     );
   }

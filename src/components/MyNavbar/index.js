@@ -45,7 +45,7 @@ export default class MyNavbar extends Component {
             <div className='form-inline my-2 my-lg-0'>
               {user && (
                 <button
-                  className='nav-link btn btn-danger'
+                  className='nav-link btn btn-danger m-2'
                   onClick={this.logMeOut}
                 >
                   Logout

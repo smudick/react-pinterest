@@ -26,11 +26,13 @@ class SearchInput extends Component {
   render() {
     return (
     <form onSubmit={this.handleSubmit}>
-      <input type='text' name='text' value={this.state.text} onChange={this.handleChange} />
-      <select name='type' value={this.state.type} onChange={this.handleChange} >
+      <div className='d-flex'>
+      <input type='text' className="form-control mr-1" placeholder="Search" name='text' value={this.state.text} onChange={this.handleChange} />
+      <select name='type' className='form-control form-control-md' value={this.state.type} onChange={this.handleChange} >
         <option value='pins'>Pins</option>
         <option value='boards'>Boards</option>
       </select>
+      </div>
     </form>
     );
   }
