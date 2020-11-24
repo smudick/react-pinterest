@@ -24,8 +24,9 @@ export default class SearchResults extends Component {
     if (searchType === 'boards') {
       // Make an API that get the boards with the search term filter
       boardData.getAllUserBoards(uid).then((response) => {
-        const results = response;
-        console.warn('Boards', results);
+        const results = response.filter(
+          (result) => result.name.includes(searchTerm),
+        );
         this.setState({
           results,
           searchTerm,
@@ -35,8 +36,9 @@ export default class SearchResults extends Component {
     } else {
       // Make an API that get the pins with the search term filter
       getAllUserPins(uid).then((response) => {
-        const results = response;
-        console.warn('Pins', results);
+        const results = response.filter(
+          (result) => result.name.includes(searchTerm),
+        );
         this.setState({
           results,
           searchTerm,
@@ -55,16 +57,20 @@ export default class SearchResults extends Component {
   render() {
     const { results, searchType } = this.state;
 
-    const showResults = () => results.map((result) => (searchType === 'boards' ? (
-          <BoardsCard key={result.firebaseKey} board={result} />
+    const showResults = () => ((results.length) ? (
+      results.map((result) => (searchType === 'boards' ? (
+          <BoardsCard key={result.firebaseKey} board={result} isOnHome={true}/>
+      ) : (
+          <PinsCard key={result.firebaseKey} pin={result} isOnHome={true}/>
+      )))
     ) : (
-          <PinsCard key={result.firebaseKey} pin={result} />
-    )));
+      <h3>No results found</h3>
+    ));
     return (
-      <BoardsCard>
+      <div className='d-flex flex-column align-items-center'>
         <h1>Search Results</h1>
-        {showResults()}
-    </BoardsCard>
+        <div className='align-items-center'>{showResults()}</div>
+    </div>
     );
   }
 }

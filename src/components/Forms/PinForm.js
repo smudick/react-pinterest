@@ -10,6 +10,7 @@ export default class PinForm extends Component {
     firebaseKey: this.props.pin?.firebaseKey || '',
     name: this.props.pin?.name || '',
     imageUrl: this.props.pin?.imageUrl || '',
+    url: this.props.pin?.url || '',
     UserId: this.props.pin?.UserId || '',
     description: this.props.pin?.description || '',
     private: this.props.pin?.private || 'false',
@@ -56,6 +57,7 @@ export default class PinForm extends Component {
         name: this.state.name,
         description: this.state.description,
         imageUrl: this.state.imageUrl,
+        url: this.state.url,
         firebaseKey: this.state.firebaseKey,
         UserId: this.state.UserId,
         private: this.state.private,
@@ -80,6 +82,7 @@ export default class PinForm extends Component {
         description: this.state.description,
         imageUrl: this.state.imageUrl,
         firebaseKey: this.state.firebaseKey,
+        url: this.state.url,
         UserId: this.state.UserId,
         private: this.state.private,
       };
@@ -104,7 +107,7 @@ export default class PinForm extends Component {
 
   render() {
     const {
-      name, boards, description, imageUrl,
+      name, boards, description, imageUrl, url,
     } = this.state;
     return (
       <form onSubmit={this.handleSubmit}>
@@ -128,6 +131,15 @@ export default class PinForm extends Component {
           value={description}
           onChange={this.handleChange}
           placeholder='Pin Description'
+          className='form-control form-control-lg m-1'
+          required
+        />
+        <input
+          type='url'
+          name='url'
+          value={url}
+          onChange={this.handleChange}
+          placeholder='Web Address'
           className='form-control form-control-lg m-1'
           required
         />

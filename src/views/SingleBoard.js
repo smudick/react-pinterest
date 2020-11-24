@@ -57,7 +57,7 @@ export default class SingleBoard extends React.Component {
   render() {
     const { pins, board } = this.state;
     const renderPins = () => (
-      pins.map((pin) => (<PinsCard key={pin.firebaseKey} pin={pin} removePin={this.removePin} />)));
+      pins.map((pin) => (<PinsCard key={pin.firebaseKey} pin={pin} removePin={this.removePin} isOnHome={true}/>)));
     return (
       <div>
         <AppModal title={'Update Board'} buttonLabel={'Update Board'} buttonColor={'success'}>
