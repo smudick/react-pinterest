@@ -1,70 +1,68 @@
-# Getting Started with Create React App
+# Pinterest
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Deployed Site
 
-## Available Scripts
+Check it out <a href="https://sm-react-pinterest.netlify.app/">here!</a>
 
-In the project directory, you can run:
+## Description
 
-### `npm start`
+This is a copy of the site Pinterest. It allows users to create and save Pins and attach them to Boards which hold similar items. Users can edit and delete pins and boards as well. This app also includes a search bar where users can get specific pins or boards based on a search term. 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Development
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Built with React, and styled with Bootstrap and Reactstrap elements. 
 
-### `npm test`
+## Code Snippet
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Pinterest is using React router to navigate through pages on the site and using a Private Route function to keep unauthenticated users from seeing certain content
+```
+export default function Routes({ user }) {
+  return (
+    <div className='App'>
+      <Switch>
+        <Route
+          exact
+          path='/'
+          component={() => <Home user={user} />}
+        />
+        <PrivateRoute
+          exact
+          path='/boards'
+          component={Boards}
+          user={user}
+        />
+        <PrivateRoute
+          exact
+          path='/pins'
+          component={Pins}
+          user={user}
+        />
+        <PrivateRoute
+          exact
+          path='/boards/:id'
+          component={SingleBoard}
+          user={user}
+        />
+        <PrivateRoute
+          extact
+          path='/search/:term/:type'
+          component={SearchResults}
+          user={user}
+        />
+        <Route component={NotFound} />
+      </Switch>
+    </div>
+  );
+}
 
-### `npm run build`
+const PrivateRoute = ({ component: Component, user, ...rest }) => {
+  const routeChecker = (taco) => (user ? (
+      <Component {...taco} user={user} />
+  ) : (
+      <Redirect to={{ pathname: '/', state: { from: taco.location } }} />
+  ));
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+  return <Route {...rest} render={(props) => routeChecker(props)} />;
+};
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
