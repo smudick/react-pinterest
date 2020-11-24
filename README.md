@@ -6,13 +6,15 @@
 
 Check it out <a href="https://sm-react-pinterest.netlify.app/">here!</a>
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/ac41a525-bc87-4fe8-94b6-fb39aed7bff7/deploy-status)](https://app.netlify.com/sites/sm-react-pinterest/deploys)
+
 ## Description
 
 This is a copy of the site Pinterest. It allows users to create and save Pins and attach them to Boards which hold similar items. Users can edit and delete pins and boards as well. This app also includes a search bar where users can get specific pins or boards based on a search term. 
 
 ## Development
 
-Built with React, and styled with Bootstrap and Reactstrap elements. 
+Built with React, and styled with Bootstrap and Reactstrap elements. Firebase used for authentication and database. Version Control through Github. Deployed with Netlify
 
 ## Code Snippet
 
